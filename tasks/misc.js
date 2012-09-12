@@ -24,7 +24,7 @@ module.exports = function(grunt) {
     var base = grunt.config('base') || grunt.option('base') || process.cwd();
     grunt.config('base', base);
 
-    var target = path.resolve(grunt.config(name)),
+    var target = path.resolve(grunt.config().base, grunt.config(name)),
       source = path.resolve(this.data),
       cb = this.async();
 
@@ -41,7 +41,7 @@ module.exports = function(grunt) {
       else grunt.log.ok(source + ' -> ' + target);
 
       // Once copy done, ensure the current working directory is the intermediate one.
-      grunt.file.setBase(grunt.config(name));
+      grunt.file.setBase(target);
       cb(!e);
     });
   });
